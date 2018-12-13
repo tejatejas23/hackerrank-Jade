@@ -1,0 +1,30 @@
+---
+
+galaxy_info:
+  author: tejas
+  description: Role that install and configure Apache web server
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+    - name: EL
+      versions:
+        - all
+  categories:
+    - system
+dependencies: []
+  description: Tomcat 8 - latest official .deb packages from the Ubuntu Package archive
+  company: sprylab technologies GmbH
+  license: Apache
+  min_ansible_version: 1.6
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - utopic
+    - vivid
+  galaxy_tags:
+  - development
+  - java
+  - system
+  - web
+dependencies: []

@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  sudo: yes
+
+  tasks:
+   - name=installing apache
+     include: Apache-ansible.yaml
+
+   - name=installing tomcat
+     include: Tomcat-ansible.yaml
+
+   - name=installing mysql
+     include: mysql-ansible.yaml

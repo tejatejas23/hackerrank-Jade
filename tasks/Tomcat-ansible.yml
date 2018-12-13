@@ -1,0 +1,32 @@
+---
+# Installing Packages
+- name: Install Tomcat7 (Ubuntu)
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - tomcat7
+    - libtcnative-1
+    - libapr1
+  when: ansible_distribution == 'Ubuntu'
+
+# Creating Tomcat Symlinks
+- name: Symlink to /usr/local/tomcat
+  file: dest=/usr/local/tomcat1 state=link src=/var/lib/tomcat7
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Symlink to /usr/local/tomcat
+  file: dest=/usr/local/tomcat2 state=link src=/var/lib/tomcat7
+  when: ansible_distribution == 'Ubuntu'
+
+# Setting Deploy Directory File Permissions
+- name: Set Tomcat Deployment Directory Permissions
+  file: dest=/usr/local/tomcat/webapps state=directory owner={{ tomcat_user }}  group={{ tomcat_user }}  mode=0775
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+# Creating Service Configuration
+- name: Configuring Tomcat Service (Ubuntu)
+  template: src=tomcat7.j2 dest=/etc/default/tomcat7 owner=root group=root mode=0644
+  notify: restart_tomcat
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Enable Tomcat Service
+  service: name=tomcat7 enabled=yes
